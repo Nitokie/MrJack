@@ -1,19 +1,20 @@
 public class Tuile {
   private String suspect;
   private boolean tuileRecto;
-  private int orientation; //1 pour en haut, +1 sens horaire, 0 inexistant;
+  protected int orientation; //1 pour en haut, +1 sens horaire, 0 inexistant;
 
   public Tuile(String suspect,  int orientation) {
-    this. suspect = suspect;
+    this.suspect = suspect;
     this.tuileRecto = true;
     this.orientation = orientation;
   }
 
+//A voir si on garde orientation + mur -> redondance
   public void rotation(int orientation, String mur) {
-    /*if (Jack.couleur == "gris") {  //Couleur ou nom perso
+    if (this.suspect == "gris") {
       orientation = 0;
-    }*/
-    /*else */if (mur == "haut") {
+    }
+    else if (mur == "haut") {
       orientation = 1;
     }
     else if (mur == "droite") {
@@ -28,11 +29,11 @@ public class Tuile {
     this.orientation = orientation;
   }
 
-  public void retourner() {
+  public void retourner(suspect) {
     this.tuileRecto = false;
     this.suspect = "none";
-    /*if (Jack.couleur == "gris") {
+    if (this.suspect == "gris") {
       this.orientation = 0;
-    }*/
+    }
   }
 }
