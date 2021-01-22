@@ -18,11 +18,12 @@ public class Tuile {
     this.orientation = orientation;
   }
 
-  public void retourner() {
+  public void retourner(Plateau plat) {
     this.tuileRecto = false;
     this.suspect = "none";
     if (this.suspect == "gris") {
       this.orientation = "none";
     }
+    plat.nombreTuileRecto -= 1;
   }
 }
