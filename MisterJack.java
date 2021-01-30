@@ -6,5 +6,4 @@ public class MisterJack {
     this.nombreSablier = 0;
     this.criminel = criminel;
   }
-
 }

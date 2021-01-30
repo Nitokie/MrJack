@@ -10,9 +10,9 @@ public class Enqueteurs {
   protected int toby;
 
   public Enqueteurs(Plateau plat) {
-    this.watson = new Random().nextInt(6);
-    this.sherlock = this.watson + 3;
-    this.toby = this.sherlock + 3;
+    this.watson = new Random().nextInt(3);
+    this.sherlock = this.watson + 4;
+    this.toby = this.sherlock + 4;
     Tuile[][] plateau = plat.composition;
     int[] listePos = {this.watson, this.sherlock, this.toby};
     for (int a =0; a < listePos.length; a++) {
@@ -33,13 +33,13 @@ public class Enqueteurs {
 
   public void changePosition(String enqueteur, int nb) {
     switch (enqueteur) {
-      case "watson" :
+      case "Watson" :
         this.watson = (this.watson + nb) % 12;
         break;
-      case "sherlock" :
+      case "Sherlock" :
         this.sherlock = (this.sherlock + nb) % 12;
         break;
-      case "toby" :
+      case "Toby" :
         this.toby = (this.toby + nb) % 12;
         break;
     }
@@ -52,19 +52,19 @@ public class Enqueteurs {
     List<String> susVisibles = new ArrayList<String>();
     for (int a = 0; a < listePos.length; a++) {
       int cote = listePos[a]/3;
-      int emplacement = 2*(listePos[a]/6)-listePos[a]%3;
+      int emplacement = 2*(1-listePos[a]%3)*(listePos[a]/6)+listePos[a]%3;
+      //System.out.println(cote);
+      //System.out.println(emplacement);
       switch (cote) {
         case 0:
           for (int i = 0; i < 3; i++) {
-            if (plateau[emplacement][i].orientation == "haut") {
+            if (plateau[i][emplacement].orientation == "haut") {
               break;
             }
-            else if (plateau[emplacement][i].orientation != "bas") {
-              if (!plateau[emplacement][i].tuileRecto) {
-                susVisibles.add(plateau[emplacement][i].suspect);
-              }
+            else if (plateau[i][emplacement].tuileRecto) {
+              susVisibles.add(plateau[i][emplacement].suspect);
             }
-            else {
+            if (plateau[i][emplacement].orientation == "bas") {
               break;
             }
           }
@@ -74,61 +74,42 @@ public class Enqueteurs {
             if (plateau[emplacement][i].orientation == "droite") {
               break;
             }
-            else if (plateau[i][emplacement].orientation != "gauche") {
-              if (!plateau[i][emplacement].tuileRecto) {
-                susVisibles.add(plateau[i][emplacement].suspect);
-              }
+            else if (plateau[emplacement][i].tuileRecto) {
+              susVisibles.add(plateau[emplacement][i].suspect);
             }
-            else {
+            if (plateau[emplacement][i].orientation == "gauche") {
               break;
             }
           }
           break;
       case 2:
-        if (emplacement == 0) {
-          emplacement = 2;
-        }
-        else if (emplacement == 2) {
-          emplacement = 0;
-        }
         for (int i = 2; i > -1; i--) {
-          if (plateau[emplacement][i].orientation == "bas") {
+          if (plateau[i][emplacement].orientation == "bas") {
             break;
           }
-          else if (plateau[emplacement][i].orientation != "haut") {
-            if (!plateau[emplacement][i].tuileRecto) {
-              susVisibles.add(plateau[emplacement][i].suspect);
-            }
+          else if (plateau[i][emplacement].tuileRecto) {
+            susVisibles.add(plateau[i][emplacement].suspect);
           }
-          else {
+          if (plateau[i][emplacement].orientation == "haut") {
             break;
           }
         }
         break;
       case 3:
-        if (emplacement == 0) {
-          emplacement = 2;
-        }
-        else if (emplacement == 2) {
-          emplacement = 0;
-        }
         for (int i = 0; i < 3; i++) {
           if (plateau[emplacement][i].orientation == "gauche") {
             break;
           }
-          else if (plateau[i][emplacement].orientation != "droite") {
-            if (!plateau[i][emplacement].tuileRecto) {
-              susVisibles.add(plateau[i][emplacement].suspect);
-            }
+          else if (plateau[emplacement][i].tuileRecto) {
+            susVisibles.add(plateau[emplacement][i].suspect);
           }
-          else {
+          if (plateau[emplacement][i].orientation == "droite") {
             break;
           }
         }
         break;
       }
     }
-
     boolean jack = true;
     if (!susVisibles.contains(criminel)) {
       jack = false;

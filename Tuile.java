@@ -23,10 +23,12 @@ public class Tuile {
   }
 
   public void retourner(Plateau plat) {
-    this.tuileRecto = false;
-    if (this.suspect == "gris") {
-      this.orientation = "none";
+    if (this.tuileRecto) {
+      plat.nombreTuileRecto -= 1;
+      this.tuileRecto = false;
+      if (this.suspect == "gris") {
+        this.orientation = "none";
+      }
     }
-    plat.nombreTuileRecto -= 1;
   }
 }

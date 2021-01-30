@@ -1,23 +1,28 @@
 import java.util.Random;
-import java.util.Dictionary;
-import java.util.Enumeration;
+import java.util.Map;
 import java.util.ArrayList;
 
-public class AlibiSherlock {
-  protected boolean recto;
+public class AlibiSherlock extends Jetons {
+
+  public AlibiSherlock() {
+    this.nom = "AS";
+    this.nomRecto = "Alibi";
+    this.nomVerso = "Sherlock";
+    this.recto = true;
+  }
 
   //Définir qui joue (string/boolean)
-  public Dictionary action(boolean tourJack, Dictionary cartes, MisterJack MrJack, Plateau plat, Enqueteurs enquet) {
+  public Map<String, Integer> action(boolean tourJack, Map<String, Integer> cartes, MisterJack MrJack, Plateau plat, Enqueteurs enquet) {
     Tuile[][] plateau = plat.composition;
     if (this.recto) {
       //Piocher une carte Alibi
       ArrayList<String> listeSus = new ArrayList<String>();
-      Enumeration enu = cartes.keys();
-      while (enu.hasMoreElements()) {
-        listeSus.add(String.valueOf(enu.nextElement()));
-      }
+      for ( String key : cartes.keySet() ) {
+    	  listeSus.add(String.valueOf(key));
+    	}
 
       String carteTiree = listeSus.get(new Random().nextInt(cartes.size()));
+      System.out.println("Carte tiree : " + carteTiree + " : " + cartes.get(carteTiree) + " sablier(s)");
       if (tourJack) {
         MrJack.nombreSablier += (int) cartes.get(carteTiree);
       }
@@ -33,8 +38,9 @@ public class AlibiSherlock {
       cartes.remove(carteTiree);
     }
     else {
-      int nb = 1; //Demander au joueur 1 ou 2
-      enquet.changePosition("sherlock", nb);
+      System.out.println("Indiquez de combien de cases bouger Sherlock");
+      int nb = Integer.parseInt(this.scanner.nextLine());
+      enquet.changePosition("Sherlock", nb);
     }
     this.recto = !this.recto;
     return cartes;

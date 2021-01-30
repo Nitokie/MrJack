@@ -1,14 +1,14 @@
 import java.util.Random;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Plateau {
-  protected Tuile[][] composition;
+  protected Tuile[][] composition = new Tuile[3][3];
   protected int nombreTuileRecto;
 
   public Plateau() {
     this.nombreTuileRecto = 9;
+    setTableau();
   }
 
 
@@ -18,14 +18,16 @@ public class Plateau {
       Arrays.asList("rose", "noir", "orange", "violet", "vert", "jaune", "bleu", "blanc", "gris"));
     ArrayList<Tuile> listeTuiles = new ArrayList<Tuile>();
     String[] direction = {"haut", "droite", "bas", "gauche"};
-    for (int i = 0; i < listesuspects.size(); i++) {
+    int taille = listesuspects.size();
+    for (int i = 0; i < taille; i++) {
       int susRandom = new Random().nextInt(listesuspects.size());
-      listeTuiles.add(new Tuile(listesuspects.get(susRandom), direction[(new Random().nextInt(4))+1]));
+      listeTuiles.add(new Tuile(listesuspects.get(susRandom), direction[(new Random().nextInt(4))]));
       listesuspects.remove(susRandom);
     }
+    int num = 0;
     for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; i++) {
-        int num = new Random().nextInt(listeTuiles.size());
+      for (int j = 0; j < 3; j++) {
+        num = new Random().nextInt(listeTuiles.size());
         this.composition[i][j] = listeTuiles.get(num);
         listeTuiles.remove(num);
       }

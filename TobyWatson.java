@@ -1,13 +1,22 @@
-public class TobyWatson {
-  protected boolean recto;
+public class TobyWatson extends Jetons {
+
+  public TobyWatson() {
+    this.nom = "TW";
+    this.nomRecto = "Toby";
+    this.nomVerso = "Watson";
+    this.recto = true;
+  }
 
   public void action(Enqueteurs enquet) {
-    int nb = 1; //Demander au joueur 1 ou 2
     if (this.recto) {
-      enquet.changePosition("toby", nb);
+      System.out.println("Indiquez de combien de cases bouger Toby");
+      int nb =  Integer.parseInt(this.scanner.nextLine());
+      enquet.changePosition("Toby", nb);
     }
     else {
-      enquet.changePosition("watson", nb);
+      System.out.println("Indiquez de combien de cases bouger Watson");
+      int nb =  Integer.parseInt(this.scanner.nextLine());
+      enquet.changePosition("Watson", nb);
     }
     this.recto = !this.recto;
   }
